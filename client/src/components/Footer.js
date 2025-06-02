@@ -1,22 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-blue-600 text-white mt-10">
-      <div className="container mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center">
-        <div className="text-sm">
-          © {new Date().getFullYear()} KaushalyaSetu. All rights reserved.
-        </div>
-        <div className="flex space-x-4 mt-4 md:mt-0">
-          <Link to="/" className="hover:underline">Home</Link>
-          <Link to="/student/dashboard" className="hover:underline">Dashboard</Link>
-          <Link to="/student/certificates" className="hover:underline">Certificates</Link>
-          <Link to="/student/achievements" className="hover:underline">Achievements</Link>
-        </div>
+    <footer className="footer">
+      <div className="footer-container">
+        <p>© {new Date().getFullYear()} ZCareer. All rights reserved.</p>
       </div>
+      <style>{`
+        .footer {
+          background-color: #0077ff;
+          color: white;
+          padding: 15px 0;
+          text-align: center;
+          margin-top: auto;
+          font-weight: 500;
+        }
+        .footer-container {
+          max-width: 1200px;
+          margin: auto;
+          padding: 0 15px;
+        }
+      `}</style>
     </footer>
   );
-};
-
-export default Footer;
+}
