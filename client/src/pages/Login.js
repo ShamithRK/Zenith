@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <section className="login-section">
       <div className="login-card card">
-        <h2>Login to ZENITH</h2>
+        <h2>Login to ZCareer</h2>
 
         {error && <p className="error-msg">{error}</p>}
 
