@@ -3,7 +3,8 @@ import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 export default function Navbar() {
-  const { user, logout } = useContext(AuthContext);
+  const { user , logout} = useContext(AuthContext) || {};
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   function toggleMenu() {
