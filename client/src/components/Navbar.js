@@ -15,7 +15,7 @@ export default function Navbar() {
     <>
       <nav className="navbar">
         <div className="logo">
-          <Link to="/">ZENITH</Link>
+          <Link to="/">ZCareer</Link>
         </div>
 
         <button
