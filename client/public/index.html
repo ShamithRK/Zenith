@@ -1,154 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ZCareer - Skill Certification & Career Bridge</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
-    color: #f0f0f5;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 20px;
-  }
-  header {
-    width: 100%;
-    max-width: 900px;
-    text-align: center;
-    padding: 40px 20px 20px;
-    border-bottom: 2px solid rgba(255,255,255,0.1);
-  }
-  header h1 {
-    font-weight: 600;
-    font-size: 2.8rem;
-    margin: 0 0 10px;
-    letter-spacing: 2px;
-  }
-  header p {
-    font-weight: 300;
-    font-size: 1.2rem;
-    color: #cdd6e0cc;
-  }
-  main {
-    max-width: 900px;
-    width: 100%;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-  section {
-    background: rgba(255, 255, 255, 0.07);
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  section:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
-  }
-  section h2 {
-    font-weight: 600;
-    font-size: 2rem;
-    margin-bottom: 18px;
-    border-bottom: 3px solid #597ef7;
-    display: inline-block;
-    padding-bottom: 6px;
-  }
-  section p {
-    font-weight: 300;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #dae1f2cc;
-  }
-  .cta-container {
-    text-align: center;
-    margin-top: 40px;
-  }
-  .btn {
-    background: #597ef7;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 14px 32px;
-    border-radius: 50px;
-    margin: 0 15px;
-    box-shadow: 0 6px 16px rgba(89,126,247,0.6);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-  }
-  .btn:hover, .btn:focus {
-    background: #4a68d1;
-    box-shadow: 0 8px 22px rgba(74,104,209,0.8);
-    outline: none;
-  }
-  footer {
-    margin-top: 60px;
-    font-size: 0.9rem;
-    color: #8590a6cc;
-  }
-  @media (max-width: 600px) {
-    header h1 {
-      font-size: 2rem;
-    }
-    section {
-      padding: 25px 20px;
-    }
-    section h2 {
-      font-size: 1.6rem;
-    }
-  }
-</style>
-</head>
-<body>
-<header>
-  <h1>ZCareer</h1>
-  <p>Empowering Your Professional Journey through Skill Certification & Career Bridge</p>
-</header>
-<main>
-  <section>
-    <h2>Why Skill Certification Matters</h2>
-    <p>
-      In today’s competitive job market, skill certification acts as a powerful validation of your expertise and knowledge. It helps you stand out from the crowd, proving your commitment to professional growth and mastery of key competencies.
-      Certified skills increase your credibility with employers, open doors to advanced opportunities, and often result in higher compensation.
-    </p>
-  </section>
-  <section>
-    <h2>The Career Bridge</h2>
-    <p>
-      Think of skill certification as a bridge connecting your current abilities to the career future you envision. This bridge unlocks new pathways by enhancing your profile, boosting confidence, and aligning you with industry standards.
-      Whether you’re switching fields or climbing the ladder, certifications provide the leverage to accelerate your career growth smoothly and effectively.
-    </p>
-  </section>
-  <section>
-    <h2>Get Started Today</h2>
-    <p>
-      Ready to build your career bridge? Explore relevant certifications, plan your learning path, and leverage resources designed to make your journey seamless. Take charge of your growth with certifications that matter.
-    </p>
-    <div class="cta-container">
-      <a href="#explore" class="btn" aria-label="Explore Certifications">Explore Certifications</a>
-      <a href="#contact" class="btn" aria-label="Contact Us">Contact Us</a>
-    </div>
-  </section>
-</main>
-<footer>
-  &copy; 2024 ZCareer. All rights reserved.
-</footer>
+    <!-- Page Title and Favicon -->
+    <title>ZCareer | Skill Enhancement & Certification</title>
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon" />
 
-</body>
+    <!-- Meta Tags -->
+    <meta name="description" content="ZCareer is your roadmap to skill mastery – follow pathways, earn badges, and get certified.">
+    <meta name="keywords" content="ZCareer, roadmap.sh, skill enhancement, learning, certification, career guidance, badges">
+    <meta name="author" content="ZCareer Team" />
+
+    <!-- Font: Poppins (Google Fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Primary Theme Color -->
+    <meta name="theme-color" content="#0077ff" />
+    <style>
+      /* Initial loading screen (optional) */
+      body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #e0f7ff, #ffffff);
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #root::before {
+        content: 'Loading ZENITH...';
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #0077ff;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
