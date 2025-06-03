@@ -45,8 +45,14 @@ export default function Login() {
 
   return (
     <section className="login-section">
+<<<<<<< HEAD
       <div className="login-card">
         <h2>Welcome to <span>ZENITH</span></h2>
+=======
+      <div className="login-card card">
+        <h2>Login to ZCareer</h2>
+
+>>>>>>> 024420ffc2303f40f40034f9c5925c9a0ead9a47
         {error && <p className="error-msg">{error}</p>}
 
         <form onSubmit={handleSubmit}>

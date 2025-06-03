@@ -47,6 +47,7 @@ export default function Register() {
         {error && <p className="error-msg">{error}</p>}
 
         <form onSubmit={handleSubmit}>
+<<<<<<< HEAD
           <div className="input-group">
             <label>Name</label>
             <input
@@ -70,6 +71,29 @@ export default function Register() {
               required
             />
           </div>
+=======
+          <label htmlFor="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your Email-Id"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+>>>>>>> 024420ffc2303f40f40034f9c5925c9a0ead9a47
 
           <div className="input-group">
             <label>Password</label>

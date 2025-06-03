@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <section className="home-section">
       <div className="home-content card">
-        <h1>Welcome to ZENITH</h1>
+        <h1>Welcome to ZCareer</h1>
         <p>Your ultimate platform for skill enhancement, certification, and career guidance.</p>
         <Link to="/register" className="btn-primary">
           Get Started
