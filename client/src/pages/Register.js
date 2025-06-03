@@ -1,85 +1,101 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
 
 export default function Register() {
-  const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'student'
+  });
 
-  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'student' });
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simple mock registration - replace with API later
-    if (form.name && form.email && form.password) {
-      // Mock success
-      login({ id: Date.now(), name: form.name, email: form.email, role: form.role });
-      if (form.role === 'student') navigate('/dashboard');
-      else if (form.role === 'trainer') navigate('/trainer-dashboard');
-      else navigate('/admin-dashboard');
-    } else {
-      setError('Please fill all fields');
+    setError('');
+
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || 'Registration failed');
+        return;
+      }
+
+      navigate('/login');
+    } catch (err) {
+      setError('Server error. Please try again later.');
     }
   };
 
   return (
     <section className="register-section">
-      <div className="register-card card">
-        <h2>Create an Account</h2>
-
+      <div className="register-card">
+        <h2>Create Your <span>ZENITH</span> Account</h2>
         {error && <p className="error-msg">{error}</p>}
 
         <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Full Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="John Doe"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <label>Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="you@example.com"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Choose a strong password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <label htmlFor="role">Register As</label>
-          <select id="role" name="role" value={form.role} onChange={handleChange}>
-            <option value="student">Student</option>
-            <option value="trainer">Trainer</option>
-            <option value="admin">Admin</option>
-          </select>
+          <div className="input-group">
+            <label>Role</label>
+            <select name="role" value={form.role} onChange={handleChange}>
+              <option value="student">Student</option>
+              <option value="trainer">Trainer</option>
+            </select>
+          </div>
 
           <button type="submit">Register</button>
         </form>
 
-        <p className="login-link">
-          Already have an account? <Link to="/login">Login here</Link>.
+        <p className="register-link">
+          Already have an account? <Link to="/login">Login here</Link>
         </p>
       </div>
 
@@ -88,72 +104,106 @@ export default function Register() {
           display: flex;
           justify-content: center;
           align-items: center;
-          min-height: 70vh;
+          min-height: 100vh;
+          background: linear-gradient(135deg, #fafcff, #e0f3ff);
           padding: 20px;
         }
+
         .register-card {
-          max-width: 420px;
-          padding: 30px 30px 40px;
-          box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-          border-radius: 12px;
-          background-color: white;
+          background: white;
+          padding: 40px 30px;
+          border-radius: 16px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+          max-width: 450px;
+          width: 100%;
+          animation: fadeIn 0.6s ease-in-out;
+        }
+
+        h2 {
+          font-size: 1.7rem;
+          margin-bottom: 20px;
+          color: #222;
           text-align: center;
         }
-        h2 {
-          margin-bottom: 25px;
-          font-weight: 700;
-          color: #0077ff;
+
+        h2 span {
+          color: #007bff;
         }
+
+        .input-group {
+          margin-bottom: 18px;
+          text-align: left;
+        }
+
         label {
           display: block;
-          text-align: left;
           margin-bottom: 6px;
           font-weight: 600;
-          color: #555;
+          color: #333;
         }
+
         input, select {
-          margin-bottom: 20px;
-          border: 1.5px solid #ddd;
-          padding: 12px;
-          border-radius: 6px;
-          font-size: 1rem;
-          transition: border-color 0.25s ease;
           width: 100%;
+          padding: 12px 14px;
+          border: 1.5px solid #ddd;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: border-color 0.2s;
         }
+
         input:focus, select:focus {
+          border-color: #007bff;
           outline: none;
-          border-color: #0077ff;
         }
+
         button {
           width: 100%;
-          background-color: #0077ff;
-          color: white;
-          font-weight: 700;
-          font-size: 1.1rem;
-          border-radius: 8px;
           padding: 12px;
-          transition: background-color 0.3s ease;
+          background-color: #007bff;
+          color: white;
+          font-weight: 600;
+          font-size: 1.05rem;
           border: none;
+          border-radius: 8px;
           cursor: pointer;
+          transition: background-color 0.25s;
         }
+
         button:hover {
-          background-color: #005ecb;
+          background-color: #005fcc;
         }
-        .login-link {
-          margin-top: 18px;
-          font-weight: 500;
+
+        .register-link {
+          margin-top: 20px;
+          font-size: 0.95rem;
+          text-align: center;
         }
-        .login-link a {
-          color: #0077ff;
+
+        .register-link a {
+          color: #007bff;
           font-weight: 600;
         }
-        .login-link a:hover {
+
+        .register-link a:hover {
           text-decoration: underline;
         }
+
         .error-msg {
-          color: #ff4444;
-          margin-bottom: 15px;
+          color: #ff4b4b;
+          margin-bottom: 16px;
+          text-align: center;
           font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
     </section>

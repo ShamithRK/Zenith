@@ -13,131 +13,190 @@ export default function Login() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simple mock auth logic — replace with API call later
-    if (form.email === 'student@example.com' && form.password === 'password') {
-      login({ id: 1, name: 'Student User', email: form.email, role: 'student' });
-      navigate('/dashboard');
-    } else if (form.email === 'trainer@example.com' && form.password === 'password') {
-      login({ id: 2, name: 'Trainer User', email: form.email, role: 'trainer' });
-      navigate('/trainer-dashboard');
-    } else if (form.email === 'admin@example.com' && form.password === 'password') {
-      login({ id: 3, name: 'Admin User', email: form.email, role: 'admin' });
-      navigate('/admin-dashboard');
-    } else {
-      setError('Invalid email or password');
+    setError('');
+
+    const { email, password } = form;
+
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || 'Login failed');
+        return;
+      }
+
+      login(data.user);
+      if (data.user.role === 'student') navigate('/dashboard');
+      else if (data.user.role === 'trainer') navigate('/trainer-dashboard');
+      else navigate('/');
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Something went wrong. Try again later.');
     }
   };
 
   return (
     <section className="login-section">
-      <div className="login-card card">
-        <h2>Login to ZENITH</h2>
-
+      <div className="login-card">
+        <h2>Welcome to <span>ZENITH</span></h2>
         {error && <p className="error-msg">{error}</p>}
 
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="you@example.com"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Your password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
           <button type="submit">Login</button>
         </form>
 
         <p className="register-link">
-          Don't have an account? <Link to="/register">Register here</Link>.
+          New here? <Link to="/register">Create an account</Link>
         </p>
       </div>
 
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+
         .login-section {
           display: flex;
           justify-content: center;
           align-items: center;
-          min-height: 70vh;
+          min-height: 90vh;
+          background: linear-gradient(135deg, #e0f7ff, #f5faff);
           padding: 20px;
         }
+
         .login-card {
+          background: white;
+          padding: 40px 30px;
+          border-radius: 16px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.08);
           max-width: 400px;
-          padding: 30px 30px 40px;
-          box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-          border-radius: 12px;
-          background-color: white;
+          width: 100%;
+          animation: fadeIn 0.6s ease-in-out;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+          margin-bottom: 24px;
+          color: #222;
           text-align: center;
         }
-        h2 {
-          margin-bottom: 25px;
-          font-weight: 700;
-          color: #0077ff;
+
+        h2 span {
+          color: #007bff;
         }
+
+        .input-group {
+          margin-bottom: 18px;
+          text-align: left;
+        }
+
         label {
           display: block;
-          text-align: left;
           margin-bottom: 6px;
           font-weight: 600;
-          color: #555;
+          color: #333;
         }
+
         input {
-          margin-bottom: 20px;
+          width: 100%;
+          padding: 12px 14px;
           border: 1.5px solid #ddd;
-          padding: 12px;
-          border-radius: 6px;
+          border-radius: 8px;
           font-size: 1rem;
-          transition: border-color 0.25s ease;
+          transition: border-color 0.2s;
         }
+
         input:focus {
+          border-color: #007bff;
           outline: none;
-          border-color: #0077ff;
         }
+
         button {
           width: 100%;
-          background-color: #0077ff;
-          color: white;
-          font-weight: 700;
-          font-size: 1.1rem;
-          border-radius: 8px;
           padding: 12px;
-          transition: background-color 0.3s ease;
+          background-color: #007bff;
+          color: white;
+          font-weight: 600;
+          font-size: 1.05rem;
           border: none;
+          border-radius: 8px;
           cursor: pointer;
+          transition: background-color 0.25s;
         }
+
         button:hover {
-          background-color: #005ecb;
+          background-color: #005fcc;
         }
+
         .register-link {
-          margin-top: 18px;
-          font-weight: 500;
+          margin-top: 20px;
+          font-size: 0.95rem;
+          text-align: center;
         }
+
         .register-link a {
-          color: #0077ff;
+          color: #007bff;
           font-weight: 600;
         }
+
         .register-link a:hover {
           text-decoration: underline;
         }
+
         .error-msg {
-          color: #ff4444;
-          margin-bottom: 15px;
+          color: #ff4b4b;
+          margin-bottom: 16px;
+          text-align: center;
           font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
     </section>
